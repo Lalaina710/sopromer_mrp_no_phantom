@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_inherit_no_phantom" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.sopromer.no.phantom</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="mrp.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='operations_setting_container']" position="after">
+                <block title="SOPROMER - Anti stock fantome" id="sopromer_no_phantom_block">
+                    <setting id="sopromer_stock_check_at_confirm_setting"
+                             string="Bloquer confirmation MO si stock matiere insuffisant"
+                             help="Empeche la confirmation d'une MO si le stock libre du composant (hors reservations autres MO/pickings) est inferieur a la qty requise. Force la reception ou l'inventaire avant confirmation. PRIORITAIRE sur les autres controles.">
+                        <field name="sopromer_stock_check_at_confirm"/>
+                    </setting>
+                    <setting id="sopromer_block_zero_setting"
+                             string="Bloquer fabrications avec composant non consomme"
+                             help="Empeche la validation d'une MO si un composant a une qty consommee de 0 alors que la qty theorique est superieure a 0.">
+                        <field name="sopromer_block_zero_consumption"/>
+                    </setting>
+                    <setting id="sopromer_mass_balance_setting"
+                             string="Conservation de masse"
+                             help="Verifie que la masse totale en sortie ne depasse pas la masse en entree au-dela de la tolerance.">
+                        <field name="sopromer_mass_balance_enabled"/>
+                        <div class="content-group" invisible="not sopromer_mass_balance_enabled">
+                            <div class="row mt16">
+                                <label for="sopromer_mass_balance_tolerance" class="col-lg-4 o_light_label"/>
+                                <field name="sopromer_mass_balance_tolerance"/>
+                            </div>
+                        </div>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>
